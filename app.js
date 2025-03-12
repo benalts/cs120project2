@@ -12,11 +12,14 @@ var secretWord = "";
 let rows = []; 
 
 window.onload = async () => {
+    submitButton.disabled = true;
+    guess.placeholder = "Loading...";
 
     secretWord = await generateWord();
 
-
     console.log("The secret word is: " + secretWord);
+    guess.placeholder = "Enter your guess.";
+    submitButton.disabled = false;
 
     //put cursor in box
     guess.focus();
@@ -93,6 +96,12 @@ function populateRows(guess, answer, rowNumber) {
 }
 
 async function resetGame(){
+
+    //preventing submissions that cause errors before we have secret word
+    submitButton.disabled = true;
+    guess.placeholder = "Loading...";
+    guess.value = "";
+
     //reset total guesses
     totalGuesses = 0;
 
@@ -108,6 +117,11 @@ async function resetGame(){
     console.log("New secret word:", secretWord);
 
     guess.value = "";
+    guess.focus();
+
+    //now we can guess again
+    guess.placeholder = "Enter your guess.";
+    submitButton.disabled = false;
     guess.focus();
 
     //hide new game button

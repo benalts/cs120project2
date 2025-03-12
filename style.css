@@ -1,9 +1,25 @@
+body {
+    display: flex;
+    justify-content: center;
+    background-color: #fbf8ff;
+    text-align: center;
+}
 td {
     height: 50px;
     width: 50px;
     border: 2px solid black;
-
+    border-radius: 10px;
+    background-color: white;
+}
+table {
+    padding-bottom: 10px;
+}
+#game {
+    display: flex;
+    flex-direction: column;
 }
 #new-game {
     display: none;
+    margin-top: 10px;
+    text-align: center;
 }

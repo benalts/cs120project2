@@ -7,34 +7,37 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <table>
-        <tr id="guess_1">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr id="guess_2">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr id="guess_3">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr id="guess_4">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr id="guess_5">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        <tr id="guess_6">
-            <td></td><td></td><td></td><td></td><td></td>
-        </tr>
-        
-    </table>
-
-    <form id="guess-form">
-        <label></label>
-        <input id="guess">
-        <button type="submit">Check my Guess</button>
-    </form>
-    <button id="new-game">New Game</button>
+    <div id="game">
+        <table>
+            <tr id="guess_1">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr id="guess_2">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr id="guess_3">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr id="guess_4">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr id="guess_5">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            <tr id="guess_6">
+                <td></td><td></td><td></td><td></td><td></td>
+            </tr>
+            
+        </table>
+    
+        <form id="guess-form">
+            <label></label>
+            <input id="guess">
+            <button id="submitButton" type="submit">Check my Guess</button>
+        </form>
+        <button id="new-game">New Game</button>
+    </div>
+    
     <script type="module" src="app.js"></script>
 </body>
 </html>
