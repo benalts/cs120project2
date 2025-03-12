@@ -8,6 +8,8 @@ var newGame = document.getElementById("new-game");
 newGame.addEventListener("click", resetGame);
 var totalGuesses = 0;
 var secretWord = "";
+var lettersDisplay = document.getElementById("letters");
+var guessedLetters = new Set();
 
 let rows = []; 
 
@@ -41,11 +43,20 @@ guessForm.addEventListener("submit", (event) => {
         return;
     }
 
+
+    addGuessedLetters(guess.value); //for list at bottom
     populateRows(guess.value, secretWord, totalGuesses);
 
     guess.select();
 
 });
+
+function addGuessedLetters(word) {
+    for (let letter of word.toUpperCase()) {
+        guessedLetters.add(letter);
+    }
+    lettersDisplay.textContent = [...guessedLetters].join(", ");
+}
 
 function populateRows(guess, answer, rowNumber) {
     let guessWord = guess.toUpperCase();
@@ -110,6 +121,8 @@ async function resetGame(){
 
     //reset total guesses
     totalGuesses = 0;
+    guessedLetters.clear();
+    lettersDisplay.textContent = "";
 
     //clear board
     rows.forEach(row => {
