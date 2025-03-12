@@ -87,9 +87,15 @@ function populateRows(guess, answer, rowNumber) {
         newGame.style.display = 'block';
     }
 
-    if (rowNumber == 6) {
-        alert("Game over!");
-        resetGame();
+    if (rowNumber === 5) {
+        //had this issue for a while... the last guess wouldnt show before the game over popup
+        //so we set a timeout to allow the UI to popuate first
+        setTimeout(() => {
+            alert(`Game over :( The correct word was: ${answerWord}`);
+            newGame.style.display = 'block';
+            submitButton.disabled = true;
+        }, 300);
+        return;
     }
 
     totalGuesses++;
