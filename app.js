@@ -1,3 +1,13 @@
+// Note: Asked ChatGPT to give me 30 5 letter words
+const words = [
+    "apple", "brave", "crisp", "dance", "eager", 
+    "flame", "grape", "happy", "ivory", "jolly", 
+    "kneel", "lemon", "mango", "noble", "ocean", 
+    "pearl", "quick", "roast", "sugar", "tiger", 
+    "ultra", "vivid", "whale", "xenon", "youth", 
+    "zebra", "brick", "cloud", "frost", "globe"
+];
+
 var guessForm = document.getElementById("guess-form");
 var guess = document.getElementById("guess");
 var newGame = document.getElementById("new-game");
@@ -46,14 +56,7 @@ guessForm.addEventListener("submit", (event) => {
         return;
     }
 
-    if (totalGuesses >= 6) {
-        alert("Game over!");
-        resetGame();
-    }
-    
     populateRows(guess.value, secretWord, totalGuesses);
-
-    totalGuesses++;
 
 });
 
@@ -62,6 +65,8 @@ function populateRows(guess, answer, rowNumber) {
     let answerWord = answer.toUpperCase();
 
     let correctLetters = [];
+
+    //set the colors of each tile
     
     for(let i = 0; i < 5; i++){
         //match => green
@@ -88,13 +93,19 @@ function populateRows(guess, answer, rowNumber) {
 
 
     //winning message
+    //this happens after we color the tiles 
     if(guessWord == answerWord) { 
         alert("You win!");
-        newGame.style.display = 'block';
-
         //show new game button
-
+        newGame.style.display = 'block';
     }
+
+    if (rowNumber == 6) {
+        alert("Game over!");
+        resetGame();
+    }
+
+    totalGuesses++;
 }
 
 function resetGame(){
