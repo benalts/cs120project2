@@ -18,6 +18,9 @@ window.onload = async () => {
 
     console.log("The secret word is: " + secretWord);
 
+    //put cursor in box
+    guess.focus();
+
     const tableRows = document.querySelectorAll("table tr");
     tableRows.forEach((tr) => {
         const tiles = Array.from(tr.children).map(td => new Tile(td));
@@ -105,6 +108,7 @@ async function resetGame(){
     console.log("New secret word:", secretWord);
 
     guess.value = "";
+    guess.focus();
 
     //hide new game button
     newGame.style.display = 'none';
