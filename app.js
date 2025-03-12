@@ -5,10 +5,15 @@ import { generateWord } from "./fetchWord.js";
 var guessForm = document.getElementById("guess-form");
 var guess = document.getElementById("guess");
 var newGame = document.getElementById("new-game");
+var scoreDisplay = document.getElementById("average-score");
+var lettersDisplay = document.getElementById("letters");
 newGame.addEventListener("click", resetGame);
+
+var totalWins = 0;
+var totalWordsPlayed = 0;
+var totalGuessesAllGames = 0;
 var totalGuesses = 0;
 var secretWord = "";
-var lettersDisplay = document.getElementById("letters");
 var guessedLetters = new Set();
 
 let rows = []; 
@@ -92,8 +97,13 @@ function populateRows(guess, answer, rowNumber) {
 
     //winning message
     //this happens after we color the tiles 
-    if(guessWord == answerWord) { 
+    if(guessWord === answerWord) { 
+        totalWins++;
+        totalWordsPlayed++;
+        totalGuessesAllGames += (rowNumber + 1);
+        updateAverageScore();
         alert("You win!");
+        submitButton.disabled = true;
         //show new game button
         newGame.style.display = 'block';
     }
@@ -101,6 +111,9 @@ function populateRows(guess, answer, rowNumber) {
     if (rowNumber === 5) {
         //had this issue for a while... the last guess wouldnt show before the game over popup
         //so we set a timeout to allow the UI to popuate first
+        totalWordsPlayed++;
+        totalGuessesAllGames += 6;
+        updateAverageScore();
         setTimeout(() => {
             alert(`Game over :( The correct word was: ${answerWord}`);
             newGame.style.display = 'block';
@@ -147,4 +160,14 @@ async function resetGame(){
     newGame.style.display = 'none';
 }
 
+// here i calculate the users score
+// we track thier total number of guesses, and the total words played, and average
+function updateAverageScore() {
+    if (totalWordsPlayed === 0) {
+        scoreDisplay.textContent = "0";
 
+    } else {
+        let averageScore = (totalGuessesAllGames / totalWordsPlayed);
+        scoreDisplay.textContent = averageScore;
+    }
+}
