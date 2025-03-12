@@ -1,41 +1,20 @@
-// Note: Asked ChatGPT to give me 30 5 letter words
-const words = [
-    "apple", "brave", "crisp", "dance", "eager", 
-    "flame", "grape", "happy", "ivory", "jolly", 
-    "kneel", "lemon", "mango", "noble", "ocean", 
-    "pearl", "quick", "roast", "sugar", "tiger", 
-    "ultra", "vivid", "whale", "xenon", "youth", 
-    "zebra", "brick", "cloud", "frost", "globe"
-];
+import { Tile } from "./Tile.js";
+import { generateWord } from "./fetchWord.js";
+
 
 var guessForm = document.getElementById("guess-form");
 var guess = document.getElementById("guess");
 var newGame = document.getElementById("new-game");
+newGame.addEventListener("click", resetGame);
 var totalGuesses = 0;
-var secretWord = "mummy";
-
-/*
-* each tile is a td with a letter and a color
-*/
-
-class Tile {
-    constructor(element) {
-        this.element = element;
-        this.letter = "";
-        this.color = "white";
-    }
-
-    update(letter, color) {
-        this.letter = letter;
-        this.color = color;
-        this.element.textContent = letter;
-        this.element.style.backgroundColor = color;
-    }
-}
+var secretWord = "";
 
 let rows = []; 
 
-window.onload = () => {
+window.onload = async () => {
+
+    secretWord = await generateWord();
+
 
     console.log("The secret word is: " + secretWord);
 
@@ -57,6 +36,8 @@ guessForm.addEventListener("submit", (event) => {
     }
 
     populateRows(guess.value, secretWord, totalGuesses);
+
+    guess.select();
 
 });
 
@@ -108,29 +89,25 @@ function populateRows(guess, answer, rowNumber) {
     totalGuesses++;
 }
 
-function resetGame(){
+async function resetGame(){
     //reset total guesses
     totalGuesses = 0;
 
     //clear board
-
     rows.forEach(row => {
         row.forEach(tile => {
             tile.update("", "white");
         });
     });
 
+    secretWord = await generateWord();
+    console.clear();
+    console.log("New secret word:", secretWord);
 
-    //set secret word to a new word
+    guess.value = "";
 
     //hide new game button
     newGame.style.display = 'none';
-
-
-
-
-
-    
 }
 
 

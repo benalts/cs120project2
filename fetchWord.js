@@ -1,11 +1,15 @@
 let usedWords = [];
 
-let generateWord = async () => {
+export async function generateWord() {
     try {
-        let response = await fetch("https://random-word-api.herokuapp.com/word?length=5");
-        let data = await response.json();
-        console.log(data);
-        let word = data[0];
+        let word;
+        
+        do {
+            let response = await fetch("https://random-word-api.herokuapp.com/word?length=5");
+            let data = await response.json();
+            word = data[0];
+        } while (usedWords.includes(word));
+
         usedWords.push(word);
         return word;
 
@@ -13,5 +17,3 @@ let generateWord = async () => {
         console.error("Error fetching word:", error);
     }
 }
-
-console.log(generateWord());
